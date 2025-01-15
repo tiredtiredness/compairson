@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  firstName String   @default("")
+  lastName  String   @default("")
+  email     String   @unique
+  imageUrl  String?
+  password  String
+  createdAt DateTime @default(now())
+  Lists     List[]
+}
+
+model List {
+  id          String       @id @default(uuid())
+  name        String
+  description String?
+  status      Status
+  isPrivate   Boolean
+  userId      String
+  createdAt   DateTime     @default(now())
+  user        User         @relation(fields: [userId], references: [id])
+  Items       Item[]
+  Comparisons Comparison[]
+  Rankings    Ranking[]
+
+  @@unique([name, userId])
+}
+
+model Item {
+  id           String       @id @default(uuid())
+  name         String
+  listId       String
+  createdAt    DateTime     @default(now())
+  list         List         @relation(fields: [listId], references: [id])
+  Comparisons1 Comparison[] @relation("Item1Relation")
+  Comparisons2 Comparison[] @relation("Item2Relation")
+  Rankings     Ranking[]
+  Comparisons  Comparison[]
+
+  @@unique([name, listId])
+}
+
+model Comparison {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  listId    String
+  list      List     @relation(fields: [listId], references: [id])
+  item1Id   String
+  item1     Item     @relation("Item1Relation", fields: [item1Id], references: [id])
+  item2Id   String
+  item2     Item     @relation("Item2Relation", fields: [item2Id], references: [id])
+  winnerId  String
+  winner    Item     @relation(fields: [winnerId], references: [id])
+
+  @@unique([listId, item1Id, item2Id])
+}
+
+model Ranking {
+  id        String   @id @default(uuid())
+  rank      Int
+  score     Int
+  createdAt DateTime @default(now())
+  listId    String
+  list      List     @relation(fields: [listId], references: [id])
+  itemId    String
+  item      Item     @relation(fields: [itemId], references: [id])
+
+  Reactions Reaction[]
+}
+
+model Reaction {
+  id        String  @id @default(uuid())
+  likes     Int
+  dislikes  Int
+  mixed     Int
+  rankingId String
+  ranking   Ranking @relation(fields: [rankingId], references: [id])
+}
+
+enum Status {
+  sorted
+  paused
+  pending
+}
