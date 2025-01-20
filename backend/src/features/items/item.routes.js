@@ -1,16 +1,16 @@
-import express from 'express';
+import express from 'express'
 import {
   createItem,
   deleteItem,
   getItems,
   updateItem,
-} from './item.controllers.js';
+} from './item.controllers.js'
 
-const router = express.Router();
+const router = express.Router()
 
-router.get('/:id', getItems);
-router.post('/', createItem);
-router.put('/:id', updateItem);
-router.delete('/:id', deleteItem);
+router.get('/:id', getItems)
+router.post('/', createItem)
+router.put('/:id', updateItem)
+router.delete('/:id', deleteItem)
 
-export default router;
+export default router

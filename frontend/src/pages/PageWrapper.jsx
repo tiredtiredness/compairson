@@ -4,5 +4,5 @@ export const PageWrapper = ({ header, children }) => {
       <header>{header}</header>
       <main>{children}</main>
     </div>
-  );
-};
+  )
+}

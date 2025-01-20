@@ -27,7 +27,7 @@ export default {
         '.animation-delay-0': { animationDelay: '0ms' },
         '.animation-delay-200': { animationDelay: '200ms' },
         '.animation-delay-400': { animationDelay: '400ms' },
-      });
+      })
     },
   ],
-};
+}

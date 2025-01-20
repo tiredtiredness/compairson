@@ -1,5 +1,5 @@
-import { Icon } from '@iconify/react/dist/iconify.js';
-import { useEffect, useState } from 'react';
+import { Icon } from '@iconify/react/dist/iconify.js'
+import { useEffect, useState } from 'react'
 
 export const EditableText = ({
   text,
@@ -8,58 +8,58 @@ export const EditableText = ({
   placeholder = 'Enter text',
   children,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [isShown, setIsShown] = useState(false);
-  const [newText, setNewText] = useState(text);
+  const [isEditing, setIsEditing] = useState(false)
+  const [isShown, setIsShown] = useState(false)
+  const [newText, setNewText] = useState(text)
 
   useEffect(() => {
-    setNewText(text || '');
+    setNewText(text || '')
     if (text === '') {
-      setIsEditing(true);
+      setIsEditing(true)
     } else {
-      setIsEditing(false);
+      setIsEditing(false)
     }
-  }, [text]);
+  }, [text])
 
   return (
-    <div className='  w-fit '>
+    <div className="w-fit">
       {isEditing ? (
-        <div className='relative flex items-center'>
+        <div className="relative flex items-center">
           {type === 'text' && (
             <input
-              type='text'
-              name=''
-              id=''
+              type="text"
+              name=""
+              id=""
               value={newText}
               placeholder={placeholder}
-              className='border-2 border-zinc-200 rounded px-2 py-1'
-              onChange={e => setNewText(e.target.value)}
-              onKeyUp={e => {
+              className="rounded border-2 border-zinc-200 px-2 py-1"
+              onChange={(e) => setNewText(e.target.value)}
+              onKeyUp={(e) => {
                 if (e.key === 'Enter' && newText.trim()) {
-                  setText(newText);
-                  setIsEditing(false);
+                  setText(newText)
+                  setIsEditing(false)
                 }
               }}
             />
           )}
           {type === 'textarea' && (
             <textarea
-              name=''
-              id=''
+              name=""
+              id=""
               value={newText}
               placeholder={placeholder}
-              className='border-2 border-zinc-200 rounded px-2 py-1 w-fit block resize'
-              onChange={e => setNewText(e.target.value)}
-              onKeyUp={e => {
+              className="block w-fit resize rounded border-2 border-zinc-200 px-2 py-1"
+              onChange={(e) => setNewText(e.target.value)}
+              onKeyUp={(e) => {
                 if (e.key === 'Enter' && newText.trim()) {
-                  setText(newText);
-                  setIsEditing(false);
+                  setText(newText)
+                  setIsEditing(false)
                 }
               }}
             />
           )}
           {isEditing && (
-            <Icon icon='solar:reply-2-outline' className='absolute -right-6' />
+            <Icon icon="solar:reply-2-outline" className="absolute -right-6" />
           )}
         </div>
       ) : (
@@ -67,14 +67,14 @@ export const EditableText = ({
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}
           onClick={() => setIsEditing(!isEditing)}
-          className='w-fit relative flex items-center'
+          className="relative flex w-fit items-center"
         >
           {children}
           {isShown && !isEditing && (
-            <Icon icon='solar:pen-outline' className='absolute -right-6' />
+            <Icon icon="solar:pen-outline" className="absolute -right-6" />
           )}
         </div>
       )}
     </div>
-  );
-};
+  )
+}

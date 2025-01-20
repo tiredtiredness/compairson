@@ -1,4 +1,4 @@
-import express from 'express';
+import express from 'express'
 
 import {
   createList,
@@ -7,15 +7,15 @@ import {
   getLists,
   getPublicLists,
   updateList,
-} from './list.controllers.js';
+} from './list.controllers.js'
 
-const router = express.Router();
+const router = express.Router()
 
-router.get('/public', getPublicLists);
-router.get('/', getLists);
-router.get('/:id', getList);
-router.post('/', createList);
-router.put('/:id', updateList);
-router.delete('/:id', deleteList);
+router.get('/public', getPublicLists)
+router.get('/', getLists)
+router.get('/:id', getList)
+router.post('/', createList)
+router.put('/:id', updateList)
+router.delete('/:id', deleteList)
 
-export default router;
+export default router

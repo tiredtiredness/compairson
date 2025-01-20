@@ -1,100 +1,100 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
-import { registerUser } from '../utils/authService.js';
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router'
+import { registerUser } from '@/utils/authService.js'
 
 export const SignUpPage = () => {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordAgain, setPasswordAgain] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate()
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordAgain, setPasswordAgain] = useState('')
+  const [error, setError] = useState('')
 
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     try {
       if (password === passwordAgain) {
-        await registerUser({ username, email, password });
-        navigate('/signin');
+        await registerUser({ username, email, password })
+        navigate('/signin')
       }
     } catch (error) {
-      setError('Unable to register user');
+      setError('Unable to register user')
     }
-  };
+  }
 
   return (
-    <div className='absolute top-1/2 left-1/2 flex  -translate-x-1/2 -translate-y-1/2 '>
-      <div className=' bg-gradient-to-l from-white to-zinc-200 px-8 py-4 rounded-s flex flex-col gap-2 justify-center'>
-        <h2 className='text-center font-bold '>Welcome to Compairson!</h2>
-        <p className='text-balance text-center '>
+    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2">
+      <div className="flex flex-col justify-center gap-2 rounded-s bg-gradient-to-l from-white to-zinc-200 px-8 py-4">
+        <h2 className="text-center font-bold">Welcome to Compairson!</h2>
+        <p className="text-balance text-center">
           Make rankings easier by comparing items in pairs.
         </p>
       </div>
-      <div className='px-8 py-4  flex flex-col gap-4'>
-        <h2 className='text-center text-3xl font-bold'>Register</h2>
+      <div className="flex flex-col gap-4 px-8 py-4">
+        <h2 className="text-center text-3xl font-bold">Register</h2>
         <form
-          className='flex flex-col gap-2 pl-4'
+          className="flex flex-col gap-2 pl-4"
           onSubmit={handleSubmit}
-          id='signup'
+          id="signup"
         >
-          <label htmlFor='' className='flex gap-2 items-center '>
-            <h4 className='font-bold capitalize w-32'>Username</h4>
+          <label htmlFor="" className="flex items-center gap-2">
+            <h4 className="w-32 font-bold capitalize">Username</h4>
             <input
-              type='text'
+              type="text"
               placeholder={'Your username'}
-              className='border-2 border-zinc-200 rounded px-2 py-1 max-w-md'
+              className="max-w-md rounded border-2 border-zinc-200 px-2 py-1"
               required
-              onChange={e => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </label>
-          <label htmlFor='' className='flex gap-2 items-center '>
-            <h4 className='font-bold capitalize w-32'>Email</h4>
+          <label htmlFor="" className="flex items-center gap-2">
+            <h4 className="w-32 font-bold capitalize">Email</h4>
             <input
-              type='email'
+              type="email"
               placeholder={'Your email'}
-              className='border-2 border-zinc-200 rounded px-2 py-1 max-w-md'
+              className="max-w-md rounded border-2 border-zinc-200 px-2 py-1"
               required
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </label>
 
-          <label htmlFor='' className='flex gap-2 items-center '>
-            <h4 className='font-bold capitalize w-32'>Password</h4>
+          <label htmlFor="" className="flex items-center gap-2">
+            <h4 className="w-32 font-bold capitalize">Password</h4>
             <input
-              type='password'
+              type="password"
               placeholder={'Your password'}
-              className='border-2 border-zinc-200 rounded px-2 py-1 max-w-md'
+              className="max-w-md rounded border-2 border-zinc-200 px-2 py-1"
               required
-              onChange={e => setPassword(e.target.value)}
-              autoComplete='current-password'
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
             />
           </label>
-          <label htmlFor='' className='flex gap-2 items-center '>
-            <h4 className='font-bold  w-32'>Password again</h4>
+          <label htmlFor="" className="flex items-center gap-2">
+            <h4 className="w-32 font-bold">Password again</h4>
             <input
-              type='password'
+              type="password"
               placeholder={'Your password again'}
-              className='border-2 border-zinc-200 rounded px-2 py-1 max-w-md'
+              className="max-w-md rounded border-2 border-zinc-200 px-2 py-1"
               required
-              onChange={e => setPasswordAgain(e.target.value)}
-              autoComplete='current-password'
+              onChange={(e) => setPasswordAgain(e.target.value)}
+              autoComplete="current-password"
             />
           </label>
         </form>
         <button
-          type='submit'
-          className='px-2 py-1 rounded bg-zinc-200 w-fit self-center '
-          form='signup'
+          type="submit"
+          className="w-fit self-center rounded bg-zinc-200 px-2 py-1"
+          form="signup"
         >
           Sign up
         </button>
-        <p className='text-sm text-center '>
+        <p className="text-center text-sm">
           Already have an account?{' '}
-          <Link to={'/signin'} className='font-semibold'>
+          <Link to={'/signin'} className="font-semibold">
             Sign in
           </Link>
         </p>
       </div>
     </div>
-  );
-};
+  )
+}

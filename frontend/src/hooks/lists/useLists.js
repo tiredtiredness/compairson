@@ -1,12 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchLists } from '../../utils/listService.js';
-import { useAuth } from '../useAuth.js';
+import { useQuery } from '@tanstack/react-query'
+import { fetchLists } from '@/utils/listService.js'
+import { useAuth } from '@/hooks/useAuth.js'
 
 export const useLists = (search, status, orderBy) => {
   const {
     user: { id },
     token,
-  } = useAuth();
+  } = useAuth()
 
   const {
     data: lists,
@@ -15,10 +15,10 @@ export const useLists = (search, status, orderBy) => {
   } = useQuery({
     queryKey: ['lists', id, search, status, orderBy],
     queryFn: () => {
-      return fetchLists({ search, status, orderBy }, token);
+      return fetchLists({ search, status, orderBy }, token)
     },
     enabled: !!id && !!token,
-  });
+  })
 
-  return { lists, isLoading, isError };
-};
+  return { lists, isLoading, isError }
+}
