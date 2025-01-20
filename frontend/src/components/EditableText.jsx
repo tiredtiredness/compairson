@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 export const EditableText = ({
   text,
   setText,
+  type = 'text',
   placeholder = 'Enter text',
   children,
 }) => {
@@ -21,34 +22,59 @@ export const EditableText = ({
   }, [text]);
 
   return (
-    <div className='flex gap-2 items-center'>
+    <div className='  w-fit '>
       {isEditing ? (
-        <input
-          type='text'
-          name=''
-          id=''
-          value={newText}
-          placeholder={placeholder}
-          className='border-2 border-zinc-200 rounded px-2 py-1 w-fit'
-          onChange={e => setNewText(e.target.value)}
-          onKeyUp={e => {
-            if (e.key === 'Enter' && newText.trim()) {
-              setText(newText);
-              setIsEditing(false);
-            }
-          }}
-        />
+        <div className='relative flex items-center'>
+          {type === 'text' && (
+            <input
+              type='text'
+              name=''
+              id=''
+              value={newText}
+              placeholder={placeholder}
+              className='border-2 border-zinc-200 rounded px-2 py-1'
+              onChange={e => setNewText(e.target.value)}
+              onKeyUp={e => {
+                if (e.key === 'Enter' && newText.trim()) {
+                  setText(newText);
+                  setIsEditing(false);
+                }
+              }}
+            />
+          )}
+          {type === 'textarea' && (
+            <textarea
+              name=''
+              id=''
+              value={newText}
+              placeholder={placeholder}
+              className='border-2 border-zinc-200 rounded px-2 py-1 w-fit block resize'
+              onChange={e => setNewText(e.target.value)}
+              onKeyUp={e => {
+                if (e.key === 'Enter' && newText.trim()) {
+                  setText(newText);
+                  setIsEditing(false);
+                }
+              }}
+            />
+          )}
+          {isEditing && (
+            <Icon icon='solar:reply-2-outline' className='absolute -right-6' />
+          )}
+        </div>
       ) : (
         <div
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}
           onClick={() => setIsEditing(!isEditing)}
+          className='w-fit relative flex items-center'
         >
           {children}
+          {isShown && !isEditing && (
+            <Icon icon='solar:pen-outline' className='absolute -right-6' />
+          )}
         </div>
       )}
-      {isShown && !isEditing && <Icon icon='solar:pen-outline' />}
-      {isEditing && <Icon icon='solar:reply-2-outline' />}
     </div>
   );
 };

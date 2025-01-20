@@ -1,14 +1,13 @@
+import { useState } from 'react';
 import { Header } from '../components/Header';
 import { ListCard } from '../components/ListCard';
 import { Loader } from '../components/Loader';
-
-import { useAuth } from '../hooks/useAuth.js';
-import { useEffect, useState } from 'react';
 import { FilterSection } from '../components/FilterSection.jsx';
 import { Input } from '../components/Input.jsx';
 import { Dropdown } from '../components/Dropdown.jsx';
 import { Button } from '../components/Button.jsx';
 import { usePublicLists } from '../hooks/lists/usePublicLists.js';
+import { useDebounce } from '../hooks/useDebounce.js';
 
 const statusFilterItems = {
   pending: 'Pending',
@@ -25,11 +24,12 @@ const orderByFilterItems = {
 
 export const ViewPublicListsPage = () => {
   const [inputValue, setInputValue] = useState('');
+  const debounceInputValue = useDebounce(inputValue, 300);
   const [statusFilter, setStatusFilter] = useState([]);
   const [orderByFilter, setOrderByFilter] = useState('');
 
   const { publicLists, isLoading } = usePublicLists(
-    inputValue,
+    debounceInputValue,
     statusFilter,
     orderByFilter
   );

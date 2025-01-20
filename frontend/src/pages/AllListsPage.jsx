@@ -9,6 +9,7 @@ import { Button } from '../components/Button.jsx';
 import { useUpdateList } from '../hooks/lists/useUpdateList.js';
 import { useLists } from '../hooks/lists/useLists.js';
 import { useEffect, useState } from 'react';
+import { useDebounce } from '../hooks/useDebounce.js';
 
 const statusFilterItems = {
   pending: 'Pending',
@@ -29,6 +30,7 @@ const orderByFilterItems = {
 
 export const AllListsPage = () => {
   const [inputValue, setInputValue] = useState('');
+  const debounceInputValue = useDebounce(inputValue, 300);
   const [statusFilter, setStatusFilter] = useState([]);
   const [orderByFilter, setOrderByFilter] = useState('');
 
@@ -39,7 +41,7 @@ export const AllListsPage = () => {
   };
 
   const { lists, isLoading: isLoadingLists } = useLists(
-    inputValue,
+    debounceInputValue,
     statusFilter,
     orderByFilter
   );
@@ -51,13 +53,12 @@ export const AllListsPage = () => {
       <Header title='Your lists' />
       <main className=''>
         <FilterSection>
-          <Input setInputValue={setInputValue} />
+          <Input inputValue={inputValue} setInputValue={setInputValue} />
           <Dropdown
             title='Status'
             type='checkbox'
             items={statusFilterItems}
             onChange={setStatusFilter}
-            
           />
           <Dropdown
             title='Order By'

@@ -3,11 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { createList, fetchLists } from '../utils/listService.js';
 import { useAuth } from '../hooks/useAuth.js';
-import { Loader } from './Loader.jsx';
 
 export const CreateListCard = () => {
   const navigate = useNavigate();
-  const { user, token, isLoading } = useAuth();
+  const { user, token } = useAuth();
 
   const { data: lists } = useQuery({
     queryKey: ['lists', user?.id],
@@ -31,7 +30,7 @@ export const CreateListCard = () => {
 
   return (
     <button
-      className='bg-zinc-100 rounded px-4 py-2 hover:cursor-pointer flex justify-center items-center '
+      className='fade min-h-36 bg-zinc-100 rounded px-4 py-2 hover:cursor-pointer flex justify-center items-center focus:outline focus:outline-black focus:outline-offset-4 '
       onClick={() => createListAndNavigate()}
     >
       <Icon icon='solar:add-square-outline' />

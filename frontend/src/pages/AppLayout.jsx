@@ -33,7 +33,8 @@ export const AppLayout = () => {
               <Route path='/lists/public' element={<ViewPublicListsPage />} />
               <Route path='/settings' element={<SettingsPage />} />
               <Route path='/lists/:listId' element={<ViewListPage />} />
-              <Route path='/rank' element={<RankListPage />} />
+              <Route path='/lists/:listId/ranking' element={<RankListPage />} />
+              <Route path='' element={<RankListPage />} />
 
               <Route path='*' element={<Navigate to='/lists/mine' />} />
             </>

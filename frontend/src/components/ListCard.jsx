@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const icons = {
   sorted: <Icon icon='solar:list-check-outline' />,
@@ -14,10 +14,11 @@ export const ListCard = ({
   showAuthor,
   showIsPrivate = true,
 }) => {
+  const navigate = useNavigate();
   return (
     <Link
       to={`/lists/${list.id}`}
-      className='bg-zinc-100 rounded px-4 py-2 hover:cursor-pointer flex flex-col gap-1'
+      className='min-h-36 bg-zinc-100 rounded px-4 py-2 hover:cursor-pointer flex flex-col gap-1 active:outline active:outline-offset-2 focus:outline focus:outline-black focus:outline-offset-4 fade '
     >
       <div className='flex justify-between items-center'>
         <h3 className=' font-bold '>{list.name}</h3>
@@ -37,13 +38,19 @@ export const ListCard = ({
               )}
             </button>
           )}
-
-          {icons[list.status]}
+          <button
+            onClick={e => {
+              e.preventDefault();
+              navigate(`../lists/${list.id}/ranking`);
+            }}
+          >
+            {icons[list.status]}
+          </button>
         </div>
       </div>
       {showAuthor && <p>{list?.user?.username}</p>}
 
-      <p className='flex-grow line-clamp-3 text-sm'>{list.description}</p>
+      <p className='line-clamp-3 text-sm '>{list.description}</p>
       <hr />
       {list.reactions ? (
         <div className='flex gap-4'>

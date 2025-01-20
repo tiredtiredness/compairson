@@ -11,7 +11,7 @@ export const Button = ({ type, children, className, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className={`px-2 py-1 ${types[type]} rounded outline outline-zinc-200  flex-shrink-0 ${className}`}
+      className={`px-2 py-1 ${types[type]} rounded outline outline-1  outline-zinc-200 focus:outline focus:outline-black focus:outline-offset-4  flex-shrink-0 ${className}`}
     >
       {children}
     </button>

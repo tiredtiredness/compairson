@@ -1,10 +1,10 @@
+import { createSearchParams } from 'react-router';
 import { API_BASE } from '../constants/constants.js';
 
 const getUrl = params => {
-  const url = Object.entries(params)
-    .filter(([, val]) => val?.length)
-    .map(([key, value]) => `${key}=${value}`)
-    .join('&');
+  const url = createSearchParams(
+    Object.entries(params).filter(([, val]) => val?.length)
+  );
   return url;
 };
 

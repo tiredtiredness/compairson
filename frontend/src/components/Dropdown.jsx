@@ -22,7 +22,7 @@ export const Dropdown = ({ title, type, items, onChange }) => {
   return (
     <div className='relative' onMouseLeave={() => setIsOpen(false)}>
       <button
-        className='relative outline outline-zinc-200 rounded px-2 py-1 flex items-center gap-1 hover:bg-zinc-100'
+        className='relative outline outline-1 outline-zinc-200 rounded px-2 py-1 flex items-center gap-1 hover:bg-zinc-100 focus:outline focus:outline-black focus:outline-offset-4 '
         onClick={toggleDropdown}
       >
         <span>{title}</span>
@@ -33,10 +33,10 @@ export const Dropdown = ({ title, type, items, onChange }) => {
       </button>
       <div className='absolute w-full h-2'></div>
       {isOpen && (
-        <form className='absolute left-0 mt-2 outline outline-zinc-200 rounded flex flex-col shadow-md bg-white z-10 '>
+        <form className='absolute left-0 mt-2 outline outline-1 outline-zinc-200 rounded flex flex-col shadow-md bg-white z-10 focus:outline focus:outline-black focus:outline-offset-4 '>
           {Object.entries(items).map(([key, value]) => (
             <label
-              className='px-2 py-1 flex items-center gap-2 cursor-pointer hover:bg-zinc-100 '
+              className='px-2 py-1 flex items-center gap-2 cursor-pointer hover:bg-zinc-100  '
               key={key}
             >
               <input

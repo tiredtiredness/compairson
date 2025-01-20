@@ -7,8 +7,8 @@ export const IconNavLink = ({ to, icon, text, hideTextClassName }) => {
       to={to}
       end
       className={({ isActive }) =>
-        `flex justify-center lg:justify-normal hover:cursor-pointer hover:outline outline-zinc-200 rounded ${
-          isActive ? ' outline ' : ''
+        `flex justify-center lg:justify-normal hover:cursor-pointer hover:outline outline-zinc-200 rounded focus:outline focus:outline-black focus:outline-offset-4  ${
+          isActive ? ' outline outline-1' : ''
         }`
       }
     >

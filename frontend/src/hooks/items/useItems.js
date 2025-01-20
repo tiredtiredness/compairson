@@ -8,6 +8,5 @@ export const useItems = listId => {
     queryKey: ['items', listId],
     queryFn: () => fetchItems(listId, token),
   });
-  console.log(items);
   return { items, isLoading: isLoadingItems };
 };

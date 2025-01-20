@@ -1,14 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth.js';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { useForm } from 'react-hook-form';
 
 export const SignInPage = () => {
   const { login, token, user } = useAuth();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
 
   useEffect(() => {
     if (token && user) {
@@ -16,15 +21,17 @@ export const SignInPage = () => {
     }
   }, [token, user, navigate]);
 
-  const handleSubmit = async event => {
-    event.preventDefault();
+  const onSubmit = async data => {
+    const { username, password } = data;
 
     try {
       await login(username, password);
       navigate('/lists');
     } catch (error) {
-      console.log(error);
-      setError(error + 'Unable to login');
+      setError('username', {
+        type: error,
+        message: 'Unable to login',
+      });
     }
   };
 
@@ -40,29 +47,40 @@ export const SignInPage = () => {
         <h2 className='text-center text-3xl font-bold'>Login</h2>
         <form
           id='signin'
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className='flex flex-col gap-2'
         >
           <label htmlFor='' className='flex gap-2 items-center '>
             <h4 className='font-bold capitalize w-20 '>Username</h4>
             <input
+              {...register('username', { required: 'This field is required' })}
               type='text'
               placeholder={'Your username'}
               className='border-2 border-zinc-200 rounded px-2 py-1 max-w-md'
-              onChange={e => setUsername(e.target.value)}
-              autoComplete='current-password'
             />
           </label>
+          {errors.username && (
+            <div className='flex items-center gap-1 text-xs text-red-600'>
+              <Icon icon='solar:danger-triangle-outline' />
+              <p>{errors.username.message}</p>
+            </div>
+          )}
+
           <label htmlFor='' className='flex gap-2 items-center '>
             <h4 className='font-bold capitalize w-20'>Password</h4>
             <input
+              {...register('password', { required: 'This field s required' })}
               type='password'
               placeholder={'Your password'}
               className='border-2 border-zinc-200 rounded px-2 py-1 max-w-md'
-              onChange={e => setPassword(e.target.value)}
-              autoComplete='current-password'
             />
           </label>
+          {errors.password && (
+            <div className='flex items-center gap-1 text-xs text-red-600'>
+              <Icon icon='solar:danger-triangle-outline' />
+              <p>{errors.password.message}</p>
+            </div>
+          )}
         </form>
 
         <button
